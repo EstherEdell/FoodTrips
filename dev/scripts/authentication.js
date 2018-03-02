@@ -16,9 +16,6 @@ class Auth extends React.Component {
             lat: '',
             lon: '',
             restaurants: []
-
-
-
         }
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
@@ -148,15 +145,30 @@ class Auth extends React.Component {
                         }
                     }).then((response) => {
                         console.log(response.data.restaurants);
+                        let newArray = Array.from(this.state.restaurants);
+
+                        newArray = response.data.restaurants.map(eatingPlace => {
+                            // console.log(eatingPlace.restaurant.name);
+                            // console.log(eatingPlace.restaurant.location.address);
+
+                            return { 
+                                name: eatingPlace.restaurant.name, 
+                                address: eatingPlace.restaurant.location.address 
+                            };
+                        });
+                        
+                        this.setState({
+                            restaurants: newArray,
+                            lat: data.results[0].geometry.location.lat,
+                            lon: data.results[0].geometry.location.lng
+                        });
                     });
                 
-                return this.setState({
-                    lat: data.results[0].geometry.location.lat,
-                    lon: data.results[0].geometry.location.lng
-
-              
-                });                
+                
+                // console.log(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
+                
             });
+  
     }
     submit(e) {
         e.preventDefault();
@@ -167,8 +179,6 @@ class Auth extends React.Component {
         this.getCoords(inputResult)
         // this.zomatoSearch(this.state.lat, this.state.lon);
     }
-    
-
     render() {
     return (
         <div>
