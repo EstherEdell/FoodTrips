@@ -16,6 +16,7 @@ class Auth extends React.Component {
             lat: '',
             lon: '',
             restaurants: []
+
         }
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
@@ -127,6 +128,7 @@ class Auth extends React.Component {
                 }
             })
             .then(({ data }) => {
+
                 // console.log(data.results[0].geometry.location.lat);
                 console.log(data.results[0].geometry.location.lng);
                 axios
@@ -167,6 +169,7 @@ class Auth extends React.Component {
                 
                 // console.log(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
                 
+
             });
   
     }
