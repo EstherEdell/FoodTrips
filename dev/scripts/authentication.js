@@ -11,7 +11,8 @@ class Auth extends React.Component {
             user: {},
             userText: '',
             lat: '',
-            lng: ''
+            lon: '',
+            restaurants: []
 
         }
         this.signIn = this.signIn.bind(this);
@@ -89,7 +90,8 @@ class Auth extends React.Component {
                 this.setState({
                     lat: data.results[0].geometry.location.lat,
                     lon: data.results[0].geometry.location.lng
-                });
+                })
+                
                 console.log(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
             });
     }

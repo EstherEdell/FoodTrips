@@ -8,29 +8,29 @@ class AxiosReq extends React.Component {
   constructor() {
     super();
     this.zomatoSearch = this.zomatoSearch.bind(this);
-    this.getCoords = this.getCoords.bind(this);
+    // this.getCoords = this.getCoords.bind(this);
     this.state = {
       restaurants: [],
       city: "",
       restaurant: ""
     };
   }
-  getCoords(address) {
-    axios
-      .get(`${googleURL}`, {
-        params: {
-          key: "AIzaSyDNBpAAUuUkRyioDLQUQW_DZYIb1PiY85Q",
-          address: address
-        }
-      })
-      .then(({ data }) => {
-        this.setState({
-          lat: data.results[0].geometry.location.lat,
-          lon: data.results[0].geometry.location.lng
-        });
-        console.log(data);
-      });
-  }
+  // getCoords(address) {
+  //   axios
+  //     .get(`${googleURL}`, {
+  //       params: {
+  //         key: "AIzaSyDNBpAAUuUkRyioDLQUQW_DZYIb1PiY85Q",
+  //         address: address
+  //       }
+  //     })
+  //     .then(({ data }) => {
+  //       this.setState({
+  //         lat: data.results[0].geometry.location.lat,
+  //         lon: data.results[0].geometry.location.lng
+  //       });
+  //       console.log(data);
+  //     });
+  // };
   zomatoSearch() {
     axios
       .get(`https://developers.zomato.com/api/v2.1/search`, {
@@ -40,8 +40,8 @@ class AxiosReq extends React.Component {
         params: {
           // q: 'toronto'      
 
-          lat: "",
-          lon: "",
+          lat: this.state.lat,
+          lon: this.state.lon,
           radius: '500',
 
           sort: 'real_distance'
@@ -55,7 +55,7 @@ class AxiosReq extends React.Component {
         // const newList = {
 
         // };
-
+        console.log(data);
         const newArray = Array.from(this.state.restaurants);
 
         data.restaurants.forEach(eatingPlace => {
@@ -72,8 +72,8 @@ class AxiosReq extends React.Component {
       });
   }
   componentDidMount() {
-    this.getCoords("438 Queen St W");
-    this.zomatoSearch();
+    // this.getCoords();
+    // this.zomatoSearch();
   }
 
   render() {
